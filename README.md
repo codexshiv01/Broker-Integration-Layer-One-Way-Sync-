@@ -53,7 +53,7 @@ See [docs/architecture.md](docs/architecture.md) for detailed architecture diagr
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/codexshiv01/Broker-Integration-Layer-One-Way-Sync-.git
 cd broker-sync
 
 # Install dependencies
