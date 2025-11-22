@@ -1,0 +1,198 @@
+{
+    "info": {
+        "name": "Broker Sync API",
+        "description": "Collection for testing the Broker Integration Layer",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Sync Trades - Zerodha",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "exec": [
+                            "// This is a demonstration of how the sync would be called",
+                            "// In actual implementation, this would be a backend service call"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"userId\": \"user123\",\n  \"brokerName\": \"zerodha\",\n  \"options\": {\n    \"limit\": 10\n  }\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/sync/trades",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "sync",
+                        "trades"
+                    ]
+                },
+                "description": "Sync trades for a user from Zerodha broker"
+            },
+            "response": [
+                {
+                    "name": "Successful Sync",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"userId\": \"user123\",\n  \"brokerName\": \"zerodha\",\n  \"options\": {\n    \"limit\": 10\n  }\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/sync/trades",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sync",
+                                "trades"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "body": "{\n  \"success\": true,\n  \"trades\": [\n    {\n      \"tradeId\": \"10000000\",\n      \"orderId\": \"200000000000000\",\n      \"symbol\": \"SBIN\",\n      \"exchange\": \"NSE\",\n      \"instrumentToken\": 779521,\n      \"transactionType\": \"BUY\",\n      \"quantity\": 10,\n      \"price\": 420.65,\n      \"averagePrice\": 420.65,\n      \"product\": \"CNC\",\n      \"timestamp\": \"2021-05-31T09:16:39.000Z\",\n      \"orderTimestamp\": \"2021-05-31T09:16:39.000Z\",\n      \"exchangeTimestamp\": \"2021-05-31T09:16:39.000Z\",\n      \"status\": \"COMPLETE\",\n      \"exchangeOrderId\": \"300000000000000\"\n    }\n  ],\n  \"count\": 1,\n  \"syncedAt\": \"2024-01-15T10:30:00.000Z\",\n  \"userId\": \"user123\",\n  \"brokerName\": \"zerodha\"\n}"
+                },
+                {
+                    "name": "Token Expired",
+                    "originalRequest": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"userId\": \"user123\",\n  \"brokerName\": \"zerodha\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/sync/trades",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "sync",
+                                "trades"
+                            ]
+                        }
+                    },
+                    "status": "Unauthorized",
+                    "code": 401,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "body": "{\n  \"success\": false,\n  \"trades\": [],\n  \"count\": 0,\n  \"syncedAt\": \"2024-01-15T10:30:00.000Z\",\n  \"userId\": \"user123\",\n  \"brokerName\": \"zerodha\",\n  \"error\": \"Access token has expired\"\n}"
+                }
+            ]
+        },
+        {
+            "name": "Get Available Brokers",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/api/brokers",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "brokers"
+                    ]
+                },
+                "description": "Get list of available broker adapters"
+            },
+            "response": [
+                {
+                    "name": "Success",
+                    "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{base_url}}/api/brokers",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "brokers"
+                            ]
+                        }
+                    },
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
+                    "header": [
+                        {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }
+                    ],
+                    "body": "{\n  \"brokers\": [\"zerodha\"]\n}"
+                }
+            ]
+        },
+        {
+            "name": "Sync Multiple Brokers",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"userId\": \"user123\",\n  \"brokerNames\": [\"zerodha\"],\n  \"options\": {\n    \"limit\": 5\n  }\n}"
+                },
+                "url": {
+                    "raw": "{{base_url}}/api/sync/multiple",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        "api",
+                        "sync",
+                        "multiple"
+                    ]
+                },
+                "description": "Sync trades from multiple brokers simultaneously"
+            },
+            "response": []
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:3000",
+            "type": "string"
+        }
+    ]
+}
